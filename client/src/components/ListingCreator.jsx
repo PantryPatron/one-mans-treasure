@@ -49,7 +49,7 @@ class ListingCreator extends React.Component{
   render(){
     return(
     <Modal open={this.state.isOpen} trigger={<div className="ui item" onClick={this.open.bind(this)}>
-        <Icon name='clipboard outline'/>
+        <Icon className='clipboard outline'/>
         Create A New Listing</div>} closeOnDimmerClick={false}>
       <Modal.Header>New Listing</Modal.Header>
       <div>
@@ -74,7 +74,7 @@ class ListingCreator extends React.Component{
       <Container textAlign="center">
         <Segment>
           <Input label="Title" onChange={this.handleChange.bind(this, 'title')} value={this.state.listing.title}
-          placeholder="Name" style={{'padding-right': '20px'}}/>
+          placeholder="Name" style={{'paddingRight': '20px'}}/>
           <Input label="Location" onChange={this.handleChange.bind(this, 'loc')} value={this.state.listing.loc}
           placeholder="Zip-Code, City, or Full Address"/>
         </Segment>

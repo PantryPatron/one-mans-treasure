@@ -27,7 +27,7 @@ class MyListings extends React.Component {
       <Modal
         open={this.state.isOpen}
         trigger={<div className="ui item" onClick={this.open.bind(this)}>
-        <Icon name='list alternate outline'/>
+        <Icon className='list alternate outline'/>
         My Listings</div>} basic size='small'>
         <Header icon='browser' content='My Listings' />
         <Modal.Content>
