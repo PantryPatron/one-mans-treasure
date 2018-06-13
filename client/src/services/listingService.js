@@ -1,4 +1,5 @@
 import $ from 'jquery';
+const ImgurConfig = require('./config.js');
 
 export function createListingService(data, userId, callback){
   let formData = new FormData();
@@ -11,7 +12,7 @@ export function createListingService(data, userId, callback){
     processData: false,
     contentType: false,
     headers: {
-      Authorization: 'Client-ID ' + IMGUR_API_ID,
+      Authorization: 'Client-ID ' + ImgurConfig.IMGUR_API_ID,
       Accept: 'application/json'
     },
     mimeType: 'multipart/form-data',
@@ -85,7 +86,7 @@ export function updateListingService(listing, oldListing, callback){
     processData: false,
     contentType: false,
     headers: {
-      Authorization: 'Client-ID ' + IMGUR_API_ID,
+      Authorization: 'Client-ID ' + ImgurConfig.IMGUR_API_ID,
       Accept: 'application/json'
     },
     mimeType: 'multipart/form-data',
