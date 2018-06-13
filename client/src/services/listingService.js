@@ -11,7 +11,7 @@ export function createListingService(data, userId, callback){
     processData: false,
     contentType: false,
     headers: {
-      Authorization: 'Client-ID ' + IMGUR_API_KEY,
+      Authorization: 'Client-ID ' + IMGUR_API_ID,
       Accept: 'application/json'
     },
     mimeType: 'multipart/form-data',
@@ -85,7 +85,7 @@ export function updateListingService(listing, oldListing, callback){
     processData: false,
     contentType: false,
     headers: {
-      Authorization: 'Client-ID ' + IMGUR_API_KEY,
+      Authorization: 'Client-ID ' + IMGUR_API_ID,
       Accept: 'application/json'
     },
     mimeType: 'multipart/form-data',
