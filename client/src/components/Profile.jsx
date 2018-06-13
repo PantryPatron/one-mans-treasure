@@ -106,9 +106,9 @@ class Profile extends React.Component{
         Edit Profile</div>} basic closeOnDimmerClick={false}>
       <Modal.Header>Your Profile</Modal.Header>
       <Divider/>
-      <Container textAlign="center"> Username {this.renderUsernameForm()}
+      <Container textalign="center"> Username {this.renderUsernameForm()}
       <Divider/>
-      <div textAlign="center"> Password {this.renderPasswordForm()}</div>
+      <div textalign="center"> Password {this.renderPasswordForm()}</div>
       </Container>
       <Divider/>
       <Modal.Actions>
