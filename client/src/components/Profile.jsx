@@ -65,14 +65,14 @@ class Profile extends React.Component{
       return (
       <span>
         <Input onChange={this.handleChange.bind(this, 'Username')} placeholder="Username"/>
-        <Button primary type="button" onClick={this.makeUsernameEditable.bind(this)}><Icon name='right chevron'/>Done</Button>
+        <Button primary type="button" onClick={this.makeUsernameEditable.bind(this)}><Icon className='right chevron'/>Done</Button>
       </span>
       )
     } else {
       return (
         <span>
           <span>&nbsp;{this.state.userInfo.Username}</span>
-          <Button secondary type="button" onClick={this.makeUsernameEditable.bind(this)}><Icon name='edit'/>Edit</Button>
+          <Button secondary type="button" onClick={this.makeUsernameEditable.bind(this)}><Icon className='edit'/>Edit</Button>
         </span>
       )
     }
@@ -83,13 +83,13 @@ class Profile extends React.Component{
       return (
       <span>
         <Input onChange={this.handleChange.bind(this, 'Password')} placeholder="Password"/>
-        <Button primary type="button" onClick={this.makePasswordEditable.bind(this)}><Icon name='right chevron'/> Done</Button>
+        <Button primary type="button" onClick={this.makePasswordEditable.bind(this)}><Icon className='right chevron'/> Done</Button>
       </span>
       )
     } else {
       return (
         <span>
-          <Button secondary type="button" onClick={this.makePasswordEditable.bind(this)}><Icon name='edit'/> Edit</Button>
+          <Button secondary type="button" onClick={this.makePasswordEditable.bind(this)}><Icon className='edit'/> Edit</Button>
         </span>
       )
     }
@@ -102,21 +102,21 @@ class Profile extends React.Component{
 
   render(){
     return(
-    <Modal open={this.state.isOpen} trigger={<div className="ui item" onClick={this.open.bind(this)}><Icon name='edit outline' />
+    <Modal open={this.state.isOpen} trigger={<div className="ui item" onClick={this.open.bind(this)}><Icon className='edit outline' />
         Edit Profile</div>} basic closeOnDimmerClick={false}>
       <Modal.Header>Your Profile</Modal.Header>
       <Divider/>
-      <Container textAlign="center"> Username {this.renderUsernameForm()}
+      <Container textalign="center"> Username {this.renderUsernameForm()}
       <Divider/>
-      <div textAlign="center"> Password {this.renderPasswordForm()}</div>
+      <div textalign="center"> Password {this.renderPasswordForm()}</div>
       </Container>
       <Divider/>
       <Modal.Actions>
         <Button type="button" onClick={this.close.bind(this)} basic color='red'>
-          <Icon name='remove'/>Cancel
+          <Icon className='remove'/>Cancel
         </Button>
         <Button primary type="button" onClick={this.submit.bind(this)} basic color='green'>
-          <Icon name='check'/>Done
+          <Icon className='check'/>Done
         </Button>
       </Modal.Actions>
     </Modal>

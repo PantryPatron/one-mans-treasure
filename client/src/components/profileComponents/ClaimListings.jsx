@@ -34,7 +34,7 @@ class ClaimListings extends React.Component {
       <Modal
         open={this.state.isOpen}
         trigger={<div className="ui item" onClick={this.open.bind(this)}>
-        <Icon name='list alternate outline'/>
+        <Icon className='list alternate outline'/>
         Claim Listings</div>} basic size='small'>
         <Header icon='browser' content='Claim Listings' />
         <Modal.Content>
@@ -43,13 +43,13 @@ class ClaimListings extends React.Component {
               <List divided verticalAlign='middle' key={entry._id}>
                 <ClaimListingEntry listing={entry}
                 listingSelectHandler={this.props.listingSelectHandler.bind(this)} close={this.close.bind(this)} claimed={this.props.claimed}/>
-              </List> 
+              </List>
             )
           }
         </Modal.Content>
         <Modal.Actions>
           <Button color='green' onClick={this.close.bind(this)} inverted>
-            <Icon name='checkmark' /> Got it
+            <Icon className='checkmark' /> Got it
           </Button>
         </Modal.Actions>
       </Modal>
