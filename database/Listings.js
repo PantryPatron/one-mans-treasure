@@ -4,6 +4,8 @@ const db = require('./index.js');
 const Comments = require('./Comments.js');
 const User = require('./Users.js');
 
+const User = require('./Users.js');
+
 let listingsSchema = mongoose.Schema({
   title: String,
   location: String,
@@ -14,9 +16,9 @@ let listingsSchema = mongoose.Schema({
   photo: String,
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }]
 },
-  {
-    timestamps: true
-  }
+{
+  timestamps: true
+}
 );
 
 let Listing = mongoose.model('Listing', listingsSchema);
@@ -24,7 +26,6 @@ let Listing = mongoose.model('Listing', listingsSchema);
 module.exports.Listing = Listing;
 
 exports.saveListing = (listing) => {
-  console.log(listing)
   let newlisting = {};
   newlisting.title = listing.title;
   newlisting.location = listing.loc;
@@ -34,15 +35,20 @@ exports.saveListing = (listing) => {
   newlisting.description = listing.desc;
   newlisting.photo = listing.image;
   let listingToStore = new Listing(newlisting);
-  return new Promise((resolve,reject)=>{
+  return new Promise((resolve, reject)=>{
     listingToStore.save()
-    .then(savedListing=>{
-      resolve(savedListing);
-    })
-    .catch(error=>{
-      reject(error)
-    })
-  })
+      .then(savedListing => {
+        User.saveListingToUser(savedListing.listedBy, savedListing);
+
+        return savedListing;
+      })
+      .then(savedListing => {
+        resolve(savedListing);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
 };
 // used to prevent Ddos attacks
 function escapeRegExp(text) {
@@ -71,28 +77,28 @@ exports.fetchListings = (query)=>{
       .limit(12)
       .exec()
       .then(listings=>{
-        console.log(listings)
+        console.log(listings);
         resolve(listings);
       })
       .catch(error=>{
         reject(error);
       })
-    })
+    });
   }
 }
 
 exports.markClaimed = (listing) => {
-  console.log(listing, 'db listing')
+  console.log(listing, 'db listing');
   return new Promise((resolve, reject)=>{
     Listing.findByIdAndUpdate(listing, {$set: {isAvailable: false}})
-    .exec().then(updated => {
-      resolve(updated);
-    })
-    .catch(error => {
-      error;
-    })
-  })
-}
+      .exec().then(updated => {
+        resolve(updated);
+      })
+      .catch(error => {
+        error;
+      });
+  });
+};
 
 exports.deleteListing = (id)=>{
   return new Promise((resolve, reject)=>{
@@ -102,9 +108,9 @@ exports.deleteListing = (id)=>{
       })
       .catch(error=>{
         reject(error);
-      })
-  })
-}
+      });
+  });
+};
 
 exports.updateInterest = ({id, userId, claimed})=>{
   console.log('🙀 updating interests at: ', Date(), 'id:', id, 'userid:', userId, 'claimed:', claimed)
@@ -137,22 +143,22 @@ exports.updateInterest = ({id, userId, claimed})=>{
 exports.updateListing = (id, {title, desc, image, loc}) => {
   return new Promise((resolve, reject) => {
     Listing.findByIdAndUpdate(id, { $set: { 'title': title, 'description': desc, 'photo': image, 'location': loc } }, { new: true })
-    .then(updated=>{
-      resolve(updated);
-    }).catch(err=>{
-      reject(err);
-    })
-  })
+      .then(updated=>{
+        resolve(updated);
+      }).catch(err=>{
+        reject(err);
+      });
+  });
 };
 
 exports.fetchClaimedListing = (listings)=>{
   return new Promise((resolve, reject)=>{
     Listing.find({_id: {$in: listings}})
-    .then(claimedListings=>{
-      resolve(claimedListings)
-    })
-    .catch(error=>{
-      reject(error)
-    })
-  })
-}
+      .then(claimedListings=>{
+        resolve(claimedListings);
+      })
+      .catch(error=>{
+        reject(error);
+      });
+  });
+};
