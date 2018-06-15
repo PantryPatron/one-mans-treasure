@@ -101,6 +101,8 @@ class Profile extends React.Component {
         <div textalign="center">Created: {(new Date(this.props.user.created_at)).toLocaleDateString('en-US')}</div>
         <Divider/>
         <div textalign="center">Admin Rights: {this.props.user.isAdmin ? 'Yes' : 'No'}</div>
+        <Divider/>
+        <div textalign="center">Karma: {this.props.user.karma}</div>
       </span>
     );
   }
