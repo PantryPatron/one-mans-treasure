@@ -48,7 +48,7 @@ class ListingEntry extends React.Component{
           <Container textAlign="center">
           <Button as='div' labelPosition='right' >
             <Button color='orange' onClick={this.claimHandler.bind(this)}>
-              <Icon name='heart' />
+              <Icon className='ticket' />
               Claim
             </Button>
             <Label as='a' basic color='orange' pointing='left'>

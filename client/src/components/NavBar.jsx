@@ -19,22 +19,36 @@ class NavBar extends React.Component{
   }
 
   renderCredential(){
+    console.log(this.props.session);
     if(this.props.session === null){
       return(
-      <div className="item ui">
-      <Button.Group>
-        <Login login={this.props.login.bind(this)}/>
-      <Button.Or/>
-        <Signup create={this.props.create.bind(this)}/>
-      </Button.Group>
-      </div>
+      <React-fragment>
+        <div className="item ui">
+          <Button.Group>
+            <Login login={this.props.login.bind(this)}/>
+            <Button.Or/>
+            <Signup create={this.props.create.bind(this)}/>
+          </Button.Group>
+        </div>
+      </React-fragment>
       )
     } else {
       return(
-      <div className="item ui">
-        <Icon name='user' />
-        Welcome back {this.props.session.user.username}!
-      </div>
+        <Menu.Menu position="right">
+          <div className="item ui">
+            <Icon link bordered inverted color='orange'name='user' /> {this.props.session.user.username} <Icon linkname='user' size='large' /> <Icon link color='orange' className='gem outline' size='large' /> {this.props.karma}
+          </div>
+          <NavDropdown
+            listings={this.props.listings}
+            logout={this.props.logout.bind(this)}
+            session={this.props.session}
+            createListing={this.props.createListing.bind(this)}
+            delete={this.props.delete.bind(this)}
+            listingSelectHandler={this.props.listingSelectHandler.bind(this)}
+            logout={this.props.logout.bind(this)}
+            giveHandler={this.props.giveHandler.bind(this)}>
+          </NavDropdown>
+        </Menu.Menu>
       )
     }
   }
@@ -47,7 +61,7 @@ class NavBar extends React.Component{
               <Icon onClick={() => {
                 this.setState({displayEnhancer: false});
                 this.props.homeHandler();
-              }} name='home' size='large'></Icon>
+              }} link name='home' size='large'></Icon>
 
           </div>
           <div className="item">
@@ -62,16 +76,6 @@ class NavBar extends React.Component{
           </div>
           <Menu.Menu position="right">
               {this.renderCredential()}
-            <NavDropdown
-              listings={this.props.listings}
-              logout={this.props.logout.bind(this)}
-              session={this.props.session}
-              createListing={this.props.createListing.bind(this)}
-              delete={this.props.delete.bind(this)}
-              listingSelectHandler={this.props.listingSelectHandler.bind(this)}
-              logout={this.props.logout.bind(this)}
-              giveHandler={this.props.giveHandler.bind(this)}>
-            </NavDropdown>
           </Menu.Menu>
         </div>
         {this.state.displayEnhancer ? this.renderSearchEnhancer() : undefined}

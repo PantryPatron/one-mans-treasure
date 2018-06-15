@@ -10,7 +10,7 @@ let usersSchema = mongoose.Schema({
   // my_listings: [{type: Schema.Types.ObjectId, ref: 'Listing'}],
   // gifted: Number, for any information regarding 'gifted listings' we can just going into the my_listings array and filter there.
   claimed: Array,
-  karma: Number,
+  karma: { type: Number, default: 3 },
   tokenCount: Number,
   isAdmin: Boolean
 })
@@ -31,7 +31,6 @@ exports.saveUser = (userData) => {
   newUser.created_at = parsedUser.created_at;
   newUser.my_listings = [];
   newUser.claimed = [];
-  newUser.karma = 0;
   newUser.tokenCount = 0;
   newUser.isAdmin = false;
   let user = new User(newUser);
@@ -84,6 +83,15 @@ exports.updateUser = (id, username, password, originalPw) => {
     })
   }
 };
+
+exports.updateUserKarma = ({userId, claimed})=>{
+  console.log('💹 updateUserKarma at: ', Date(), 'userid:', userId, 'claimed:', claimed)
+    if(claimed){
+      return User.findByIdAndUpdate(userId, { $inc: { 'karma': +1 }}).exec()
+    } else {
+      return User.findByIdAndUpdate(userId, { $inc: { 'karma': -1 }}).exec()
+    }
+}
 
 exports.claimItem = (user, listing) => {
   return new Promise((resolve, reject)=>{

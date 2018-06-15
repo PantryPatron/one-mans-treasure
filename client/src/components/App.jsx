@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import NavBar from './NavBar.jsx';
 import Listings from './Listings.jsx';
 import Comments from './Comments.jsx';
@@ -20,6 +21,7 @@ class App extends React.Component {
       loginAs: null,
       view: 'listings',
       selectedListing: '',
+      karma: null
     }
   }
 
@@ -52,6 +54,7 @@ class App extends React.Component {
         logout={this.userLogout.bind(this)}
         listingSelectHandler={this.listingSelectHandler.bind(this)}
         giveHandler={this.giveHandler.bind(this)}
+        karma={this.state.karma}
         />
 
         <Container>
@@ -91,10 +94,18 @@ class App extends React.Component {
     if (index >= 0) {
       listingInterestService(_id, user, true, (serverRes) => {
         this.props.fetchListings(query);
+        this.setState({ karma: this.state.karma -1 })
+        // axios.post('/user', { user, claimed}).then(response=>{
+        // })
+        // console.log('this.state.loginAs = ', this.state.loginAs)
       })
     } else if (index < 0) {
       listingInterestService(_id, user, false ,(serverRes) => {
         this.props.fetchListings(query);
+        this.setState({ karma: this.state.karma +1 })
+        // axios.post('/user', user).then(karma => {
+        //   this.setState({karma})
+        // })
       })
     }
   }
@@ -113,7 +124,8 @@ class App extends React.Component {
         alert('you messed up dawg');
       } else {
         this.setState({
-          loginAs: response
+          loginAs: response,
+          karma: response.user.karma
         });
       }
     })

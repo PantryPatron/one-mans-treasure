@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('./index.js');
 const Comments = require('./Comments.js');
+const User = require('./Users.js');
 
 let listingsSchema = mongoose.Schema({
   title: String,
@@ -106,26 +107,31 @@ exports.deleteListing = (id)=>{
 }
 
 exports.updateInterest = ({id, userId, claimed})=>{
-  console.log(id, userId, claimed)
-  return new Promise((resolve, reject)=>{
+  console.log('🙀 updating interests at: ', Date(), 'id:', id, 'userid:', userId, 'claimed:', claimed)
+  // return new Promise((resolve, reject)=>{
     if(JSON.parse(claimed) === true){
-      Listing.findByIdAndUpdate(id, {$pull:{interested_users:{$in: userId}}})
-      .exec().then(updated=>{
-        resolve(updated);
-      })
-      .catch(error=>{
-        error;
-      })
-    } else {
-      Listing.findByIdAndUpdate(id, {$push:{interested_users: userId}})
-      .exec().then(updated=>{
-        resolve(updated);
-      })
-      .catch(error=>{
-        error;
-      })
-    }
-  })
+      //promise.all - 2 async calls
+        return Listing.findByIdAndUpdate(id, {$pull:{interested_users:{$in: userId}}})
+        .exec()
+        // .then(User.updateUserKarma({id, userId, claimed}))//.then(updated=>{
+        //   resolve(updated);
+        // })
+        // .catch(error=>{
+        //   error;
+        // })
+
+        // User.findByIdAndUpdate(userId, { $inc: { 'karma': -1 }}).exec()
+      } else {
+        return Listing.findByIdAndUpdate(id, {$push:{interested_users: userId}})
+        .exec()
+        // .then(User.updateUserKarma({id, userId, claimed}))//.then(updated=>{
+        //   resolve(updated);
+        // })
+        // .catch(error=>{
+        //   error;
+        // })
+      }
+  // })
 }
 
 exports.updateListing = (id, {title, desc, image, loc}) => {

@@ -10,7 +10,7 @@ module.exports = {
   },
 
   giveListing: function(data) {
-    console.log(data);
+    // console.log(data);
     let receiverId =  data.receiver;
     let listingId = data.listing;
     return new Promise((resolve, reject) => {
