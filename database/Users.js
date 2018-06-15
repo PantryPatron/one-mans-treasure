@@ -49,13 +49,11 @@ exports.saveUser = (userData) => {
 exports.loginUser = (userData, callback) => {
   let user = userData.body.user;
   let password = userData.body.pw;
-  User.findOne({username: user}, function(err, user) {
-    if (err) {
-      console.error(err);
-    }
-  }).then(user => {
-    callback(bcrypt.compareSync(password, user.password), user);
-  }).catch(err => callback(false));
+  User.findOne({username: user}).populate('my_listings')
+    .then(user => {
+      callback(bcrypt.compareSync(password, user.password), user);
+    })
+    .catch(err => callback(false));
 };
 
 exports.updateUser = (id, username, password, originalPw) => {
