@@ -4,8 +4,6 @@ const db = require('./index.js');
 const Comments = require('./Comments.js');
 const User = require('./Users.js');
 
-const User = require('./Users.js');
-
 let listingsSchema = mongoose.Schema({
   title: String,
   location: String,
