@@ -95,6 +95,16 @@ class Profile extends React.Component {
     }
   }
 
+  renderGeneralInfo() {
+    return (
+      <span>
+        <div textalign="center">Created: {(new Date(this.props.user.created_at)).toLocaleDateString('en-US')}</div>
+        <Divider/>
+        <div textalign="center">Admin Rights: {this.props.user.isAdmin ? 'Yes' : 'No'}</div>
+      </span>
+    );
+  }
+
   submit() {
     updateUserService(this.state.userInfo);
     this.close();
@@ -106,14 +116,14 @@ class Profile extends React.Component {
         Your Profile</div>} basic closeOnDimmerClick={false}>
         <Modal.Header>Your Profile</Modal.Header>
         <Divider/>
+        <Container textalign="center"> {this.renderGeneralInfo()}
+        </Container>
+        <Divider />
         <Container textalign="center"> Username {this.renderUsernameForm()}
           <Divider/>
           <div textalign="center"> Password {this.renderPasswordForm()}</div>
         </Container>
         <Divider />
-        <Container textalign="center"> Created: {(new Date(this.props.user.created_at)).toLocaleDateString('en-US')}
-        </Container>
-        <Divider/>
         <Modal.Actions>
           <Button type="button" onClick={this.close.bind(this)} basic color='red'>
             <Icon className='remove'/>Cancel
