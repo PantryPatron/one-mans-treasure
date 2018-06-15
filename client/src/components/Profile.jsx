@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Header, Icon, Divider,
-  Container, Modal, Input, Form, TextArea } from 'semantic-ui-react';
+  Container, Modal, Input, Form, TextArea, Message } from 'semantic-ui-react';
 import { updateUserService } from '../services/userService.js';
 
 class Profile extends React.Component {
@@ -111,7 +111,22 @@ class Profile extends React.Component {
   renderUserComments() {
     return (
       <div>
-        Insert Comments Here
+        <h3 className="ui">Current Listings</h3>
+        {
+          this.props.user.my_listings.map((listing) => {
+            return (
+              <Message key={ listing._id } className={ listing.isAvailable ? 'positive' : 'negative' }>
+                <Header>
+                  { listing.title }
+                </Header>
+                <Divider />
+                <span>
+                  { listing.description }
+                </span>
+              </Message>
+            );
+          })
+        }
       </div>
     );
   }
