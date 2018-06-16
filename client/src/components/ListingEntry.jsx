@@ -2,6 +2,7 @@ import React from 'react';
 import {Grid, Segment, Image, Divider,
   Container, Header, Label, Icon, Button} from 'semantic-ui-react';
 import {googleMapService} from '../services/googleMapService';
+import $ from 'jquery';
 
 class ListingEntry extends React.Component{
   constructor(props){
@@ -14,7 +15,8 @@ class ListingEntry extends React.Component{
           city: null,
           state: null,
           zipcode: null
-      }
+      },
+      disabledClaim: false
     }
   }
 
@@ -38,7 +40,15 @@ class ListingEntry extends React.Component{
     })
   }
 
-  claimHandler(){
+  claimHandler(e){
+    this.setState({
+      disabledClaim: true
+    })
+    setTimeout(()=> {
+      this.setState({
+        disabledClaim: false
+      })
+    }, 800)
     this.props.interestHandler(this.props.listing)
   }
 
@@ -58,7 +68,7 @@ class ListingEntry extends React.Component{
           <Divider/>
           <Container textAlign="center">
           <Button as='div' labelPosition='right' >
-            <Button color='orange' onClick={this.claimHandler.bind(this)}>
+            <Button color='orange' onClick={this.claimHandler.bind(this)} disabled={ this.state.disabledClaim }>
               <Icon className='ticket' />
               Claim
             </Button>
