@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('./index.js');
 const User = require('./Users.js');
+// this is a comment for Comments
 
 let commentSchema = Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
