@@ -4,7 +4,6 @@ export const FETCH_INTERESTED_USERS = 'FETCH_INTERESTED_USERS';
 // export const FETCH_USER = 'FETCH_USER';
 
 export const fetchInterestedUsers = (users) => {
-  console.log(users);
   const url = `/interestedUsers`;
   const response = axios.put(url, {users});
   return {

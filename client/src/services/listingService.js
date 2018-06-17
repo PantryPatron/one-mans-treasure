@@ -70,8 +70,6 @@ export function deleteListingService(id, callback){
 }
 
 export function updateListingService(listing, oldListing, callback){
-  console.log(listing)
-  console.log(oldListing)
   if(listing.image === oldListing.image){
     updateListing(listing, oldListing, callback)
   } else {
@@ -122,7 +120,6 @@ function updateListing(listing, oldListing, callback) {
 }
 
 export function givawayListingService(input, callback){
-  console.log(input.receiver)
   $.post('/listing/give', {
     receiver: input.receiver,
     listing: input.listing

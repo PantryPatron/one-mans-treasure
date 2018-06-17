@@ -8,7 +8,7 @@ class Profile extends React.Component{
     super(props);
     this.state = {
       userInfo : {
-        UserId: this.props.user.userId,
+        UserId: this.props.user._id,
         Username: this.props.user.username,
         Password: this.props.user.password,
         OriginalPw: this.props.user.password

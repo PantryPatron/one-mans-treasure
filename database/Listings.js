@@ -121,7 +121,7 @@ exports.updateInterest = ({id, userId, claimed})=>{
       //promise.all - 2 async calls
         return Listing.findByIdAndUpdate(id, {$pull:{interested_users:{$in: userId}}})
         .exec()
-        // .then(User.updateUserKarma({id, userId, claimed}))//.then(updated=>{
+        .then(User.incUserKarma({id, userId, claimed}))//.then(updated=>{
         //   resolve(updated);
         // })
         // .catch(error=>{
@@ -132,7 +132,7 @@ exports.updateInterest = ({id, userId, claimed})=>{
       } else {
         return Listing.findByIdAndUpdate(id, {$push:{interested_users: userId}})
         .exec()
-        // .then(User.updateUserKarma({id, userId, claimed}))//.then(updated=>{
+        .then(User.decUserKarma({id, userId, claimed}))//.then(updated=>{
         //   resolve(updated);
         // })
         // .catch(error=>{

@@ -85,10 +85,18 @@ exports.updateUser = (id, username, password, originalPw) => {
 exports.updateUserKarma = ({userId, claimed})=>{
   console.log('💹 updateUserKarma at: ', Date(), 'userid:', userId, 'claimed:', claimed)
     if(claimed){
-      return User.findByIdAndUpdate(userId, { $inc: { 'karma': +1 }}).exec()
-    } else {
       return User.findByIdAndUpdate(userId, { $inc: { 'karma': -1 }}).exec()
+    } else {
+      return User.findByIdAndUpdate(userId, { $inc: { 'karma': +1 }}).exec()
     }
+}
+
+exports.decUserKarma = ({userId, claimed})=>{
+  return User.findByIdAndUpdate(userId, { $inc: { 'karma': -1 }}).exec()
+}
+
+exports.incUserKarma = ({userId, claimed})=>{
+  return User.findByIdAndUpdate(userId, { $inc: { 'karma': +1 }}).exec()
 }
 
 exports.claimItem = (user, listing) => {

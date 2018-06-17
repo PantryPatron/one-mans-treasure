@@ -19,7 +19,6 @@ class NavBar extends React.Component{
   }
 
   renderCredential(){
-    console.log(this.props.session);
     if(this.props.session === null){
       return(
       <React-fragment>

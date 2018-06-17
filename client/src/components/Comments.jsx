@@ -30,11 +30,8 @@ class Comments extends React.Component{
   }
 
   handleCommentSubmit() {
-    console.log('These are props handed down to Comments', this.props)
-    console.log('These are in the state: ', this.state)
     // send message to server
-    console.log('This is the text: ', this.state.text);
-    axios.post('/api/comments', 
+    axios.post('/api/comments',
     {
       text: this.state.text,
       userId: this.state.userId,
@@ -83,6 +80,7 @@ class Comments extends React.Component{
             </Segment>
           </div>
         </div>
+
 
         <div className="two column row">
           <div className="column">

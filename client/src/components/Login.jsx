@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, Icon, Modal, Input, Form} from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Input, Form, Label} from 'semantic-ui-react'
 
 class Login extends React.Component{
   constructor(props) {
@@ -32,8 +32,9 @@ class Login extends React.Component{
   }
 
   submit(){
-    this.props.login(this.state.account);
-    this.close();
+    this.props.login(this.state.account, () => {
+      this.close();
+    });
   }
 
   render(){
@@ -50,6 +51,9 @@ class Login extends React.Component{
             <Form.Group widths={1}>
               <Form.Input type='password' onChange={this.handleChange.bind(this, 'password')}
               value={this.state.account.password} placeholder='Password' required/>
+              <div className="login-error" hidden>
+                <Label className="ui left pointing red basic">Wrong credentials, please try again</Label>
+              </div>
             </Form.Group>
               <Button type="button" onClick={this.close.bind(this)} basic color='red' inverted>
                 <Icon name='remove'/>Cancel

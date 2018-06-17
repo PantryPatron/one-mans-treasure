@@ -46,8 +46,10 @@ body{
 }
 
 .listing-image {
-  height: 15vmin;
-  width: auto;
+  object-fit: cover;
+  object-position: center;
+  height: 300px;
+  width: 300px;
 }
 
 /*--------------
