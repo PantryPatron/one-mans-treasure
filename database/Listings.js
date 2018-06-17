@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('./index.js');
-const Comments = require('./Comments.js');
-const User = require('./Users.js');
+// const User = require('./Users.js');
 
 
 let listingsSchema = mongoose.Schema({
@@ -14,7 +13,7 @@ let listingsSchema = mongoose.Schema({
   description: String,
   photo: String,
   username: { type: String, ref: 'User' },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comments' }]
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 },
   {
     timestamps: true
@@ -23,7 +22,7 @@ let listingsSchema = mongoose.Schema({
 
 let Listing = mongoose.model('Listing', listingsSchema);
 
-module.exports.Listing = Listing;
+exports.Listing = Listing;
 
 exports.saveListing = (listing) => {
   console.log(listing)
@@ -163,5 +162,17 @@ exports.fetchClaimedListing = (listings)=>{
     .catch(error=>{
       reject(error)
     })
+  })
+}
+
+exports.findOneListing = (listingId) => {
+  return new Promise((resolve, reject) => {
+    console.log('Find one listing ID:', listingId)
+     Listing.findById(listingId).populate('comments').exec().then(listing => {
+      console.log('Resolved listing:', listing)
+       resolve(listing);
+     }).catch(error => {
+       reject(error);
+     })
   })
 }
