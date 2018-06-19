@@ -67,6 +67,6 @@ Currently there is no test for this application.
 
 ## Authors
 John Webb/
-Mealear Kheiv/ 
+Mealear Khiev/ 
 Erwin Carrasquilla/ 
 Heshie London
