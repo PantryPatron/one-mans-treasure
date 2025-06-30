@@ -1,10 +1,10 @@
 import React from 'react';
-import Signup from './Signup.jsx';
+import {Button, Icon, Menu} from 'semantic-ui-react';
+import store from '../index.jsx';
 import Login from './Login.jsx';
 import NavDropdown from './NavDropdown.jsx';
-import {Button, Dropdown, Menu, Container, Header, Icon} from 'semantic-ui-react';
 import SearchEnhancer from './SearchEnhancer.jsx';
-import store from '../index.jsx';
+import Signup from './Signup.jsx';
 
 class NavBar extends React.Component{
   constructor(props){
@@ -12,6 +12,7 @@ class NavBar extends React.Component{
     this.state = {
       displayEnhancer: false
     }
+    this.searchRef = React.createRef();
   }
 
   renderSearchEnhancer() {
@@ -21,7 +22,7 @@ class NavBar extends React.Component{
   renderCredential(){
     if(this.props.session === null){
       return(
-      <React-fragment>
+      <React.Fragment>
         <div className="item ui">
           <Button.Group>
             <Login login={this.props.login.bind(this)}/>
@@ -29,7 +30,7 @@ class NavBar extends React.Component{
             <Signup create={this.props.create.bind(this)}/>
           </Button.Group>
         </div>
-      </React-fragment>
+      </React.Fragment>
       )
     } else {
       return(
@@ -44,7 +45,6 @@ class NavBar extends React.Component{
             createListing={this.props.createListing.bind(this)}
             delete={this.props.delete.bind(this)}
             listingSelectHandler={this.props.listingSelectHandler.bind(this)}
-            logout={this.props.logout.bind(this)}
             giveHandler={this.props.giveHandler.bind(this)}>
           </NavDropdown>
         </Menu.Menu>
@@ -68,7 +68,7 @@ class NavBar extends React.Component{
             {/*search bar here*/}
               <form onSubmit={this.handleSearch.bind(this)}>
                 <i className="search icon"></i>
-                <input className="search-query"type="type" placeholder="Search"/>
+                <input ref={this.searchRef} className="search-query" type="text" placeholder="Search"/>
                 <Button color='orange' className="ui button">Submit</Button>
               </form>
             </div>
@@ -84,7 +84,7 @@ class NavBar extends React.Component{
 
   handleSearch(e) {
     e.preventDefault();
-    const query = document.getElementsByClassName('search-query')[0].value;
+    const query = this.searchRef.current.value;
     this.setState({displayEnhancer: !!query});
 
     store.dispatch({
@@ -92,9 +92,8 @@ class NavBar extends React.Component{
       payload: query
     })
 
-    document.getElementsByClassName('search-query')[0].value = '';
+    this.searchRef.current.value = '';
     this.props.searchListings(query);
-
   }
 }
 

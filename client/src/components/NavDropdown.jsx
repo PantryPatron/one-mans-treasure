@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Button, Dropdown, Menu, Divider, Segment, Icon, DropdownDivider } from 'semantic-ui-react'
+import React, {Component} from 'react';
+import {Dropdown, DropdownDivider, Icon} from 'semantic-ui-react';
 import ListingCreator from './ListingCreator.jsx';
-import MyListings from './profileComponents/MyListings.jsx';
-import ClaimListings from './profileComponents/ClaimListings.jsx';
 import Profile from './Profile.jsx';
+import ClaimListings from './profileComponents/ClaimListings.jsx';
+import MyListings from './profileComponents/MyListings.jsx';
 
 class NavDropdown extends Component {
   constructor(props){

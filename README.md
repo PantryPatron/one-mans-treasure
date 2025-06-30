@@ -117,8 +117,6 @@ One Man's Treasure is a platform for unwanted items where a user can display an 
 -   **React** (v16.4.0) - UI framework
 -   **Redux** (v4.0.0) with **Redux-Promise** - State management
 -   **React-Redux** (v5.0.7) - React-Redux bindings
--   **Semantic UI React** (v0.80.2) - UI component library
--   **Semantic UI** - CSS framework
 -   **Axios** (v0.18.0) - HTTP client
 -   **jQuery** (v3.3.1) - DOM manipulation and AJAX
 -   **Moment.js** (v2.22.2) - Date/time handling
@@ -535,7 +533,7 @@ IMGUR_API_ID=your_imgur_client_id
 1. **Clone the repository**
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/PantryPatron/one-mans-treasure.git
     cd one-mans-treasure
     ```
 
@@ -548,9 +546,22 @@ IMGUR_API_ID=your_imgur_client_id
 3. **Set up environment variables**
    Create a `.env` file in the root directory:
 
-    ```
+    ```.env
+    # MongoDB connection string
     MONGODB_URI=mongodb://localhost/greenfield
-    IMGUR_API_ID=your_imgur_client_id
+
+    # Server port number
+    PORT=port
+
+    # Imgur API credentials
+    IMGUR_API_ID=your_imgur_api_id
+    IMGUR_API_SECRET=your_imgur_api_secret
+
+    # Google Maps API Key
+    GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+
+    # Express session secret
+    SESSION_SECRET=secret_key_here
     ```
 
 4. **Update API keys**

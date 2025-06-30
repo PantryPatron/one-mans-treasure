@@ -1,7 +1,7 @@
-import React from 'react';
-import {Container, Grid, Image, Button, TextArea, Input, Header, Icon, Segment, Divider} from 'semantic-ui-react';
 import axios from 'axios';
 import moment from 'moment';
+import React from 'react';
+import {Segment, TextArea} from 'semantic-ui-react';
 
 class Comments extends React.Component{
   constructor(props) {
@@ -16,7 +16,7 @@ class Comments extends React.Component{
 
   componentDidMount(){
     axios.get(`/fetch/${this.props.listingId}`)
-    .then(response => {
+    .then(_response => {
       this.props.fetchOneListing(this.props.listingId);
     }).catch(err => {
       console.error(err);
@@ -39,7 +39,7 @@ class Comments extends React.Component{
       postDate: this.state.date,
       listingId: this.props.listingId
 
-    }).then(response => {
+    }).then(_response => {
       this.props.fetchOneListing(this.props.listingId)
     }).catch(error => {
       console.error(error.response)

@@ -1,6 +1,14 @@
 import React from 'react';
-import { Button, Segment, Icon, Divider,
-   Container, Modal, Input, TextArea } from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Divider,
+  Icon,
+  Input,
+  Modal,
+  Segment,
+  TextArea
+} from 'semantic-ui-react';
 
 class ListingCreator extends React.Component{
   constructor(props){

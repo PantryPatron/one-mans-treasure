@@ -1,7 +1,15 @@
 import React from 'react';
-import { Button, Header, Icon, Divider,
-   Container, Modal, Input, Form, TextArea, Message } from 'semantic-ui-react'
-import { updateUserService } from '../services/userService.js'
+import {
+  Button,
+  Container,
+  Divider,
+  Header,
+  Icon,
+  Input,
+  Message,
+  Modal
+} from 'semantic-ui-react';
+import {updateUserService} from '../services/userService.js';
 
 class Profile extends React.Component{
   constructor(props){
