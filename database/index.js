@@ -16,10 +16,12 @@ mongoose
     })
     .catch((err) => {
         console.error("Database connection error:", err);
-        process.exit(1);
     });
 
 let db = mongoose.connection;
+db.on("error", (err) => {
+    console.error("Database error:", err);
+});
 db.once("open", () => {
     console.log("greenfield database connected");
 });

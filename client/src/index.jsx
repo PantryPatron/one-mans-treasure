@@ -1,18 +1,34 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import {createRoot} from 'react-dom/client';
+import {Provider} from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
 import ReduxPromise from 'redux-promise';
+import App from './components/App.jsx';
 import reducers from './reducers/RootReducer';
+let store;
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+try {
+  store = createStore(reducers, applyMiddleware(ReduxPromise));
+  const container = document.getElementById('app');
+  if (!container) {
+    throw new Error("Root element 'app' not found in the document.");
+  }
 
-var store = createStoreWithMiddleware(reducers);
+  const root = createRoot(container);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App store={store}/>
-  </Provider>, document.getElementById('app'));
+  root.render(
+    <Provider store={store}>
+      <App store={store}/>
+    </Provider>);
+} catch (error) {
+  console.error("Error during ReactDOM.render:", error);
+  const body = document.querySelector('body');
 
+  if (body) {
+    body.innerHTML = `<h1>Error: ${error.message}</h1>`;
+  } else {
+    alert(`Error: ${error.message}`);
+  }
+
+}
 export default store;

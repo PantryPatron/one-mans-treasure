@@ -20,7 +20,7 @@ class NavBar extends React.Component{
   }
 
   renderCredential(){
-    if(this.props.session === null){
+    if(this.props.session.user._id === null){
       return(
       <React.Fragment>
         <div className="item ui">

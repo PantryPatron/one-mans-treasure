@@ -7,9 +7,8 @@ export default {
     listings: [],
     query: "",
     user: {
-        id: null,
-        name: null,
-        email: null,
+        username: null,
+        _id: null,
         karma: 0,
     },
     comments: [],

@@ -121,7 +121,7 @@ class Profile extends React.Component{
       <div>
         <h3 className="ui">Current Listings</h3>
         {
-          this.props.user.my_listings.map((listing) => {
+          (this.props.user.my_listings || []).map((listing) => {
             return (
               <Message key={ listing._id } className={ listing.isAvailable ? 'positive' : 'negative' }>
                 <Header>

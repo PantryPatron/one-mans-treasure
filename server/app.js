@@ -27,3 +27,5 @@ app.use("/", routes);
 app.listen(port, () => {
     console.log(`listening port: ${port}`);
 });
+
+module.exports = app; // Export the app for testing purposes

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Header, Icon, Modal, List } from 'semantic-ui-react'
+import {Button, Header, Icon, List, Modal} from 'semantic-ui-react';
 import MyListingEntry from './MyListingEntry.jsx';
 
 class MyListings extends React.Component {
@@ -32,7 +32,7 @@ class MyListings extends React.Component {
         <Header icon='browser' content='My Listings' />
         <Modal.Content>
           {
-            this.props.listings.map(entry =>
+            (this.props.listings || []).map(entry =>
               entry.listedBy === this.props.user._id ?
               <List divided verticalAlign='middle' key={entry._id}>
                 <MyListingEntry listing={entry} delete={this.props.delete.bind(this)}

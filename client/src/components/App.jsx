@@ -7,31 +7,53 @@ import {Container} from "semantic-ui-react";
 import {fetchListings, setQuery} from "../actions/ListingActions";
 import store from "../index.jsx";
 import {
-  createListingService,
-  deleteListingService,
-  givawayListingService,
-  listingInterestService,
-  updateListingService,
+    createListingService,
+    deleteListingService,
+    givawayListingService,
+    listingInterestService,
+    updateListingService,
 } from "../services/listingService.js";
 import {loginService, signupService} from "../services/userService.js";
 import ListingDetails from "./ListingDetails.jsx";
 import Listings from "./Listings.jsx";
 import NavBar from "./NavBar.jsx";
 
+
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             map: null,
-            loginAs: { user: { username: "Anonymous", _id: "none" } },
+            loginAs: { user: { username: "Anonymous", _id: null, karma: null } },
             view: "listings",
             selectedListing: "",
             karma: null,
             comments: [],
+            hasError: false,
+            errorMessage: "",
         };
     }
 
+    static getDerivedStateFromError(error) {
+        console.error("Error in App component:", error);
+        // Update state so the next render will show the fallback UI.
+        return { hasError: true, errorMessage: error.toString() };
+    }
+
+    componentDidCatch(error, info) {
+        console.error("Error caught in App:", error, info);
+        this.setState({
+            hasError: true,
+            errorMessage: error.toString(),
+        });
+    }
+
     renderBody() {
+        if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return <h1>Something went wrong. {this.state.errorMessage}</h1>;
+        }
+
         if (this.state.view === "listings") {
             return (
                 <Listings
