@@ -1,6 +1,15 @@
 import React from 'react';
-import {Grid, Segment, Image, Divider,
-  Container, Header, Label, Icon, Button} from 'semantic-ui-react';
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Header,
+  Icon,
+  Image,
+  Label,
+  Segment
+} from 'semantic-ui-react';
 import {googleMapService} from '../services/googleMapService';
 
 class ListingEntry extends React.Component{

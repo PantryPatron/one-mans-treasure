@@ -1,34 +1,36 @@
-import React from 'react';
-import {createRoot} from 'react-dom/client';
-import {Provider} from 'react-redux';
-import {applyMiddleware, createStore} from 'redux';
-import ReduxPromise from 'redux-promise';
-import App from './components/App.jsx';
-import reducers from './reducers/RootReducer';
+import React from "react";
+import {createRoot} from "react-dom/client";
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore} from "redux";
+import ReduxPromise from "redux-promise";
+import App from "./components/App.jsx";
+import reducers from "./reducers/RootReducer";
 let store;
 
 try {
-  store = createStore(reducers, applyMiddleware(ReduxPromise));
-  const container = document.getElementById('app');
-  if (!container) {
-    throw new Error("Root element 'app' not found in the document.");
-  }
+    store = createStore(reducers, applyMiddleware(ReduxPromise));
+    const container = document.getElementById("app");
+    if (!container) {
+        throw new Error("Root element 'app' not found in the document.");
+    }
 
-  const root = createRoot(container);
+    const root = createRoot(container);
 
-  root.render(
-    <Provider store={store}>
-      <App store={store}/>
-    </Provider>);
+    root.render(
+        <React.StrictMode>
+            <Provider store={store}>
+                <App store={store} />
+            </Provider>
+        </React.StrictMode>
+    );
 } catch (error) {
-  console.error("Error during ReactDOM.render:", error);
-  const body = document.querySelector('body');
+    console.error("Error during ReactDOM.render:", error);
+    const body = document.querySelector("body");
 
-  if (body) {
-    body.innerHTML = `<h1>Error: ${error.message}</h1>`;
-  } else {
-    alert(`Error: ${error.message}`);
-  }
-
+    if (body) {
+        body.innerHTML = `<h1>Error: ${error.message}</h1>`;
+    } else {
+        alert(`Error: ${error.message}`);
+    }
 }
 export default store;

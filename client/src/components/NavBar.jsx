@@ -69,7 +69,7 @@ class NavBar extends React.Component{
               <form onSubmit={this.handleSearch.bind(this)}>
                 <i className="search icon"></i>
                 <input ref={this.searchRef} className="search-query" type="text" placeholder="Search"/>
-                <Button color='orange' className="ui button">Submit</Button>
+                {/* <Button color='orange' className="ui button">Submit</÷Button> */}
               </form>
             </div>
           </div>

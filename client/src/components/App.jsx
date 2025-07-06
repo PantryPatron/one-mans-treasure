@@ -52,9 +52,42 @@ class App extends React.Component {
         if (this.state.hasError) {
             // You can render any custom fallback UI
             return <h1>Something went wrong. {this.state.errorMessage}</h1>;
-        }
+        } else if (this.state.view === "listings") {
+            if (Array.isArray(this.props.listings.listings) && this.props.listings.listings.length === 0) {
+                return (
+                    <div className="ui center aligned segment">
+                        <h2>No listings available</h2>
+                        <p>Try searching for something else or create a new listing!</p>
+                    </div>
+                );
+            }
 
-        if (this.state.view === "listings") {
+            if (this.props.listings.error) {
+                return (
+                    <div className="ui center aligned segment">
+                        <h2>Error fetching listings</h2>
+                        <p>{this.props.listings.error}</p>
+                    </div>
+                );
+            }
+
+            if (this.props.listings.loading) {
+                return (
+                    <div className="ui active centered inline loader">
+                        <h2>Loading listings...</h2>
+                    </div>
+                );
+            }
+
+            if (this.props.listings.query) {
+                return (
+                    <div className="ui center aligned segment">
+                        <h2>Search Results for "{this.props.listings.query}"</h2>
+                    </div>
+                );
+            }
+
+            // Render the listings component with the listings data
             return (
                 <Listings
                     interestHandler={this.markInterest.bind(this)}
@@ -63,6 +96,36 @@ class App extends React.Component {
                 />
             );
         } else if (this.state.view === "single") {
+            if (!this.state.selectedListing) {
+                return (
+                    <div className="ui center aligned segment">
+                        <h2>No listing selected</h2>
+                        <p>Please select a listing to view details.</p>
+                    </div>
+                );
+            }
+
+            // Render the ListingDetails component with the selected listing
+            if (
+                !this.state.selectedListing ||
+                typeof this.state.selectedListing !== "object" ||
+                !("_id" in this.state.selectedListing)
+            ) {
+                return (
+                    <div className="ui center aligned segment">
+                        <h2>Loading listing details...</h2>
+                    </div>
+                );
+            }
+
+            // Ensure that the map is available before rendering ListingDetails
+            if (!this.state.map) {
+                return (
+                    <div className="ui center aligned segment">
+                        <h2>Loading map...</h2>
+                    </div>
+                );
+            }
             return (
                 <ListingDetails
                     user={this.state.loginAs}
@@ -100,14 +163,14 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchListings();
+        // this.props.fetchListings();
     }
 
     createListing(listing, userId, cb) {
-        createListingService(listing, userId, (/*response*/) => {
+        createListingService(listing, userId, (response) => {
             this.props.fetchListings();
         });
-        this.setState({ karma: this.state.karma || 0 + 1 });
+        this.setState({ karma: (this.state.karma || 0) + 1 });
         if (cb) {
             cb();
         }
@@ -148,6 +211,7 @@ class App extends React.Component {
     }
 
     createAccount(user) {
+        debugger;
         signupService(user, (response) => {
             this.setState({
                 loginAs: response,
