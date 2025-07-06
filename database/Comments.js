@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const model = mongoose.model;
 const db = require("./index.js");
 const User = require("./Users.js");
 const Listing = require("./Listings.js");
@@ -11,12 +12,13 @@ let commentSchema = new Schema({
     posted: { type: Date, default: Date.now },
 });
 
-let Comment = mongoose.model("Comment", commentSchema);
+let Comment = model("Comment", commentSchema);
 exports.Comment = Comment;
 
 exports.saveComment = (comment) => {
     return new Promise((resolve, reject) => {
         let newComment = {};
+        // TODO validate userId from the comment object.
         newComment.userId = comment.userId;
         newComment.username = comment.username;
         newComment.message = comment.text;

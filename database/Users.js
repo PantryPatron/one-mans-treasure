@@ -1,25 +1,30 @@
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
-const db = require("./index.js");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-let usersSchema = mongoose.Schema({
-    username: { type: String, required: true, index: { unique: true } },
-    password: { type: String, required: true },
-    created_at: Date,
-    my_listings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Listing" }],
-    // my_listings: [{type: Schema.Types.ObjectId, ref: 'Listing'}],
-    // gifted: Number, for any information regarding 'gifted listings' we can just going into the my_listings array and filter there.
-    claimed: Array,
-    karma: { type: Number, default: 3 },
-    tokenCount: Number,
-    isAdmin: Boolean,
-});
+let usersSchema = new Schema(
+    {
+        username: { type: String, required: true, index: { unique: true } },
+        password: { type: String, required: true },
+        created_at: { type: Date },
+        my_listings: [{ type: Schema.Types.ObjectId, ref: "Listing" }],
+        // giftedf: Number, for any information regarding 'gifted listings' we can just going into the my_listings array and filter there.
+        claimed: { type: [Schema.Types.Mixed], default: [] },
+        karma: { type: Number, default: 3 },
+        tokenCount: { type: Number, default: 0 },
+        isAdmin: { type: Boolean, default: false },
+    },
+    {
+        timestamps: true,
+    }
+);
 
-let User = mongoose.model("User", usersSchema);
+let User = model("User", usersSchema);
 
 module.exports.User = User;
 
-exports.saveUser = (userData) => {
+exports.createUser = (userData) => {
     let newUser = {};
     let parsedUser = userData.body;
     let plainTextPw = parsedUser.pw;
@@ -55,9 +60,13 @@ exports.loginUser = (userData, callback) => {
     User.findOne({ username: user })
         .populate("my_listings")
         .then((user) => {
-            callback(bcrypt.compareSync(password, user.password), user);
+            if (!user) {
+                callback(false, null);
+            } else {
+                callback(bcrypt.compareSync(password, user.password), user);
+            }
         })
-        .catch((err) => callback(false));
+        .catch((err) => callback(false, null));
 };
 
 exports.updateUser = (id, username, password, originalPw) => {
@@ -123,7 +132,7 @@ exports.incUserKarma = ({ userId, claimed }) => {
 };
 
 exports.claimItem = (user, listing) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         User.findByIdAndUpdate(user, { $push: { claimed: listing } })
             .exec()
             .then((updated) => {

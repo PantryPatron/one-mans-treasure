@@ -129,9 +129,9 @@ class App extends React.Component {
         let user = this.state.loginAs.user._id;
         let index = interested_users.indexOf(user);
         if (index >= 0) {
-            listingInterestService(_id, user, true, (/*serverRes*/) => {
+            listingInterestService(_id, user, true, (serverRes) => {
                 this.props.fetchListings(query);
-                this.setState({ karma: this.state.loginAs.user.karma + 1 });
+                this.setState({ karma: (this.state.loginAs.user.karma || 0) + 1 });
                 // axios.post('/user', { user, claimed}).then(response=>{
                 // })
                 // console.log('this.state.loginAs = ', this.state.loginAs)
@@ -139,7 +139,7 @@ class App extends React.Component {
         } else if (index < 0) {
             listingInterestService(_id, user, false, (/*serverRes*/) => {
                 this.props.fetchListings(query);
-                this.setState({ karma: this.state.loginAs.user.karma - 1 });
+                this.setState({ karma: (this.state.loginAs.user.karma || 0) - 1 });
                 // axios.post('/user', user).then(karma => {
                 //   this.setState({karma})
                 // })
