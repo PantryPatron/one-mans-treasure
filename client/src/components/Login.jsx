@@ -58,7 +58,7 @@ class Login extends React.Component{
               <Button type="button" onClick={this.close.bind(this)} basic color='red' inverted>
                 <Icon name='remove'/>Cancel
               </Button>
-              <Button type="button" onClick={this.submit.bind(this)} color='blue' inverted type='submit'>Log In</Button>
+              <Button onClick={this.submit.bind(this)} color='blue' inverted type='submit'>Log In</Button>
           </Form>
         </Modal.Content>
       </Modal>

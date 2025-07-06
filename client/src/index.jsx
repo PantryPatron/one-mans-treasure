@@ -1,6 +1,15 @@
-import React from "react";
-import {createRoot} from "react-dom/client";
+import React from 'react';
+import {createRoot} from 'react-dom/client';
 import {Provider} from "react-redux";
+
+// Temporary fix: Suppress findDOMNode warnings from Semantic UI React
+const originalError = console.error;
+console.error = function (...args) {
+  if (args[0] && args[0].includes && args[0].includes('findDOMNode')) {
+    return;
+  }
+  originalError.apply(console, args);
+};
 import {applyMiddleware, createStore} from "redux";
 import ReduxPromise from "redux-promise";
 import App from "./components/App.jsx";
